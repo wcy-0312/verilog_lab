@@ -55,7 +55,7 @@ endcase
 end
 endmodule
 
-module Lab6(clk,reset,out,in);
+module Lab7(clk,reset,out,in);
 input clk,reset,in;
 reg [3:0] count;
 reg [2:0]state, next_state;
