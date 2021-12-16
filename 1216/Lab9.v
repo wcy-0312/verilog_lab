@@ -65,8 +65,8 @@ case(row_count)
 3'd6:dot_row<=8'b11111101;
 3'd7:dot_row<=8'b11111110;
 endcase
-case(State)
-
+  
+case(state)
 green:case(row_count)
 3'd0:dot_col<=8'b00001100;
 3'd1:dot_col<=8'b00001100;
