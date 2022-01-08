@@ -680,6 +680,10 @@ assign collision_with_border = ((array_of_snake_x_position[0] == 7'd0) || (array
 assign collision_with_apple = ((array_of_snake_x_position[0] == apple_x_position) && (array_of_snake_y_position[0] == apple_y_position));
 assign ten_wire = (score % 10);
 assign one_wire = (score / 10);
+	
+integer body_index;
+reg collision_with_body;
+
 always@(posedge clk_4Hz or negedge reset) begin
 	if(!reset) begin
 		array_of_snake_x_position[0]<=7'd32;
@@ -690,6 +694,7 @@ always@(posedge clk_4Hz or negedge reset) begin
 		snake_len <= 7'd0;
 	end
 	else begin
+		
 		for(len_counter_p = 127;len_counter_p > 0;len_counter_p=len_counter_p - 1) begin
 			if(len_counter_p <= snake_len + 1) begin
 				array_of_snake_x_position[len_counter_p] <= array_of_snake_x_position[len_counter_p-1];
@@ -711,6 +716,26 @@ always@(posedge clk_4Hz or negedge reset) begin
 				array_of_snake_x_position[0] <= array_of_snake_x_position[0] - 7'd1;
 			end
 		endcase
+		
+		collision_with_body <= 1'b0;
+		for(body_index <= 1; body_index < 128; body_index <= body_index + 1) begin
+			if(!collision_with_body && body_index <= snake_len)
+			begin
+				if(array_of_snake_x_position[0] == array_of_snake_x_position[body_index] && array_of_snake_y_position[0] == array_of_snake_y_position[body_index])
+				begin
+					collision_with_body <= 1'b1;
+				end
+				else
+				begin
+					collision_with_body <= 1'b0;
+				end
+			end
+			else
+			begin
+				collision_with_body <= collosion_with_body;
+			end
+		end
+		
 		if(collision_with_apple) begin
 			snake_len <= snake_len + 7'd1;
 			gen_new_position_signal <= 1'd1;
