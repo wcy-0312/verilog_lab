@@ -14,7 +14,7 @@ module clk_divider_25MHz(input clk,input reset,output reg divided_clk);
 	        if(!reset) 
 	            begin
 		            divided_clk <= 1'b0;
-    	        end
+    	            end
 	        else   
 	            begin
 		            divided_clk <= ~divided_clk;
@@ -52,21 +52,21 @@ module clk_divider_100Hz(input clk,input reset,output reg divided_clk);
     always@(posedge clk or negedge reset) 
         begin
 	        if(!reset) 
-	            begin
+	                begin
 		            counter <= 31'd0;
 		            divided_clk <= 1'd0;
-            	end
+            		end
         	else 
         	    begin
 	               	if(counter == 31'd250000) 
-    	         	    begin
+    	         	        begin
     			            counter <= 31'd0;
     	        		    divided_clk <= ~divided_clk;
-    	            	end
+    	            		end
     	        	else 
-    	        	    begin
+    	        	        begin
     			            counter <= counter + 31'd1;
-    		            end
+    		                end
             	end
         end
 endmodule
