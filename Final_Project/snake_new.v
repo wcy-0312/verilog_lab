@@ -718,7 +718,7 @@ always@(posedge clk_4Hz or negedge reset) begin
 		endcase
 		
 		collision_with_body <= 1'b0;
-		for(body_index <= 1; body_index < 128; body_index <= body_index + 1) begin
+		for(body_index = 1; body_index < 128; body_index = body_index + 1) begin
 			if(!collision_with_body && body_index <= snake_len)
 			begin
 				if(array_of_snake_x_position[0] == array_of_snake_x_position[body_index] && array_of_snake_y_position[0] == array_of_snake_y_position[body_index])
@@ -732,7 +732,7 @@ always@(posedge clk_4Hz or negedge reset) begin
 			end
 			else
 			begin
-				collision_with_body <= collosion_with_body;
+				collision_with_body <= collision_with_body;
 			end
 		end
 		
